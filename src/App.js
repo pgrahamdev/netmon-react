@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Table from 'react-bootstrap/Table';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -15,7 +16,7 @@ const OnLineButton = (props) => {
   const onlineText = (online) => online ? "On-Line" : "Off-Line"
 
   return (
-    <Button variant={onlineStyle(props.online)} onMouseDown={e => e.preventDefault()}>
+    <Button className="m-2" variant={onlineStyle(props.online)} onMouseDown={e => e.preventDefault()}>
       {onlineText(props.online)}
     </Button>
   )
@@ -40,10 +41,12 @@ const AppNavBar = (props) => {
 
 const TestConnButton = (props) => {
   return (
-    <Button onClick={() => {
-      props.sendMessage("Start") }} onMouseDown={e => e.preventDefault() }>
-      Test Connection
+    <ButtonToolbar className="p-2">
+      <Button onClick={() => {
+        props.sendMessage("Start") }} onMouseDown={e => e.preventDefault() }>
+        Test Connection
       </Button>
+    </ButtonToolbar>
   );
 }
 
@@ -163,7 +166,7 @@ function App() {
             <TestConnButton sendMessage={sendMessage}></TestConnButton>
             <ReceivedMessage message={statusMessage}></ReceivedMessage>
           </Col>
-          <Col>
+          <Col className="p-2">
             <ResultsTable results={messages} />
           </Col>
       </Row>

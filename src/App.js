@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container'
 
-const myWsURL = "ws://localhost:8080/ws";
+const myWsURL = "ws://" + window.location.host + "/ws";
 
 const OnLineButton = (props) => {
   const onlineStyle = (online) => online ? "success" : "danger"
@@ -15,7 +15,7 @@ const OnLineButton = (props) => {
   const onlineText = (online) => online ? "On-Line" : "Off-Line"
 
   return (
-    <Button variant={onlineStyle(props.online)}>
+    <Button variant={onlineStyle(props.online)} onMouseDown={e => e.preventDefault()}>
       {onlineText(props.online)}
     </Button>
   )
@@ -41,7 +41,7 @@ const AppNavBar = (props) => {
 const TestConnButton = (props) => {
   return (
     <Button onClick={() => {
-      props.setLastUpdate(new Date()) }}>
+      props.sendMessage("Start") }} onMouseDown={e => e.preventDefault() }>
       Test Connection
       </Button>
   );
@@ -120,7 +120,7 @@ function App() {
     // state!  Otherwise, I can't add to the messages state.
     socket.current.onmessage = (msg) => {
       //const incomingMessage = `Message from WebSocket: ${msg.data}`;
-      console.log(msg.data)
+      //console.log(msg.data)
       let result = JSON.parse(msg.data)
       if (result.type === "status") {
         setStatusMessage(result.data);
@@ -129,7 +129,10 @@ function App() {
         setMessages(JSON.parse(result.data));
       }
       else if (result.type === "result") {
-        setMessages(messages.concat(JSON.parse(result.data)));
+        const tmpMessage = JSON.parse(result.data)
+        setLastUpdate(tmpMessage.timestamp)
+        setMessages(messages.concat(tmpMessage));
+        setStatusMessage("Result Received.")
       }
     }
   });
@@ -151,21 +154,14 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    console.log("Component is rendering");
-    return () => { console.log("Component is being destroyed."); }
-  })
-
   return (
     <div className="App">
       <AppNavBar lastUpdate={lastUpdate} online={connected}></AppNavBar>
       <Container>
         <Row>
           <Col>
-            <TestConnButton setLastUpdate={setLastUpdate}></TestConnButton>
+            <TestConnButton sendMessage={sendMessage}></TestConnButton>
             <ReceivedMessage message={statusMessage}></ReceivedMessage>
-            <StartButton sendMessage={sendMessage}></StartButton>
-            <StopButton sendMessage={sendMessage}></StopButton>
           </Col>
           <Col>
             <ResultsTable results={messages} />

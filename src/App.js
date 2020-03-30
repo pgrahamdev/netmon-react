@@ -7,6 +7,9 @@ import Table from 'react-bootstrap/Table';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container'
+import HistoryChart from './HistoryChart'
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 
 const myWsURL = "ws://" + window.location.host + "/ws";
 
@@ -167,7 +170,14 @@ function App() {
             <ReceivedMessage message={statusMessage}></ReceivedMessage>
           </Col>
           <Col className="p-2">
-            <ResultsTable results={messages} />
+            <Tabs defaulActiveKey="chart" id="results">
+              <Tab eventKey="chart" title="Chart">
+                <HistoryChart results={messages}/>
+              </Tab>
+              <Tab eventKey="table" title="Table">
+                <ResultsTable results={messages} />
+              </Tab>
+            </Tabs>
           </Col>
       </Row>
       </Container>

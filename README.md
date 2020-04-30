@@ -1,3 +1,17 @@
+# netmon-react
+
+This repository provides a React-based Web interface for [netmon](https://github.com/pgrahamdev/netmon), a Golang wrapper for the [speedtest-cli](https://github.com/sivel/speedtest-cli) Python program.
+
+## Preparation for Building
+
+When performing a fresh clone of this repository, you will want to run `npm install` in the `netmon-react` directory before performing a `npm run build`.
+
+## Usage Hint
+
+If you are modifying the Web front end, you may find it useful to create a link to the `netmon-react/build` directory called `www` in the directory holding the `netmon` Golang binary.  This way you don't have to manually copy the contents of the `netmon-react/build` directory into the `www` each time a change is made.
+
+## Create React App
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

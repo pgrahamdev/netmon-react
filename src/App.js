@@ -73,7 +73,7 @@ const StopButton = (props) => {
 
 const ReceivedMessage = (props) => {
   return (
-  <div>{props.message}</div>
+  <div className="p-2">{props.message}</div>
   );
 }
 
@@ -164,11 +164,15 @@ function App() {
     <div className="App">
       <AppNavBar lastUpdate={lastUpdate} online={connected}></AppNavBar>
       <Container>
-        <Row>
-          <Col>
+        <Row className="justify-content-md-center">
+          <Col xs lg="4">
             <TestConnButton sendMessage={sendMessage}></TestConnButton>
+          </Col>
+          <Col xs lg="4">
             <ReceivedMessage message={statusMessage}></ReceivedMessage>
           </Col>
+        </Row>
+        <Row>
           <Col className="p-2">
             <Tabs defaulActiveKey="chart" id="results">
               <Tab eventKey="chart" title="Chart">
@@ -179,7 +183,7 @@ function App() {
               </Tab>
             </Tabs>
           </Col>
-      </Row>
+        </Row>
       </Container>
     </div>
   );

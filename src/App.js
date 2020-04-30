@@ -84,6 +84,7 @@ const ResultsTable = (props) => {
         <tr>
           <th>Time</th>
           <th>Server</th>
+          <th>Server ID</th>
           <th>Download</th>
           <th>Upload</th>
         </tr>
@@ -93,6 +94,7 @@ const ResultsTable = (props) => {
           return (<tr key={i}>
             <td>{result.timestamp}</td>
             <td>{result.server.sponsor}</td>
+            <td>{result.server.id}</td>
             <td>{(result.download/1e6).toFixed(3)} Mb/s</td>
             <td>{(result.upload/1e6).toFixed(3)} Mb/s</td>
           </tr>)})}

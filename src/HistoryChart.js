@@ -58,6 +58,9 @@ const HistoryChart = (props) => {
 
         chart.legend = new am4charts.Legend();
 
+        // Add an export menu to the chart
+        chart.exporting.menu = new am4core.ExportMenu()
+
         return () => {
             if (chart) {
                 chart.dispose()
